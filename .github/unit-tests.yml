@@ -7,3 +7,20 @@ jobs:
     steps: # we give it a step
       - name: Greeting! 
         run: echo hello world # the step will print hello world to consule
+
+  test-python-3-14:
+    name: Test Python 3.14
+    runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        python-version: ["3.12","3.14"]
+    steps:
+      - uses: actions/checkout@v7 # this is a third party/github supported action which checks into the repo
+      - uses: actions/setup-python@v5
+        with: 
+          #python-version: "3.14" # the version goes into quotations because it may get truncated
+          python-version: ${{matrix.python-version}}
+      - name: Install package
+        run: python -m pip install -e .[test] # installing python and the test dependencies (as per .toml file)
+      - name: Test package
+        run: python -m pytest
