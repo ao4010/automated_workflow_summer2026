@@ -1,0 +1,9 @@
+name: Unit Tests
+on: push # runs everytime something is pushed
+
+jobs:
+  greeting: 
+    runs-on: ubuntu-latest # this machine is the latest linux image
+    steps: # we give it a step
+      - name: Greeting! 
+        run: echo hello world # the step will print hello world to consule
